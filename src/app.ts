@@ -12,7 +12,6 @@ import {connectDB} from './db/connect'
 import authRouter from './routes/auth'
 
 
-
 import { notFoundMiddleware } from './middleware/not-found'
 import {errorHandlerMiddleware} from './middleware/error-handler'
 
