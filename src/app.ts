@@ -9,6 +9,7 @@ const app : Express = express()
 import {connectDB} from './db/connect'
 
 // Routers
+import authRouter from './routes/auth'
 
 
 
@@ -25,7 +26,7 @@ app.get('/', (req: Request,res: Response)=>{
 })
 
 //routes
-
+app.use('/api/v1/auth', authRouter)
 
 app.use(notFoundMiddleware)
 app.use(errorHandlerMiddleware)
