@@ -11,7 +11,6 @@ export const createCustomError = (statusCode: number, message: string): CustomAP
     return new CustomAPIError(message, statusCode);
 };
 
-
 // JS Counterpart
 
 // class CustomAPIError extends Error {
