@@ -11,7 +11,7 @@ import {connectDB} from './db/connect'
 // Routers
 
 
-// Middlewares
+
 import { notFoundMiddleware } from './middleware/not-found'
 import {errorHandlerMiddleware} from './middleware/error-handler'
 
@@ -25,6 +25,7 @@ app.get('/', (req: Request,res: Response)=>{
 })
 
 //routes
+
 
 app.use(notFoundMiddleware)
 app.use(errorHandlerMiddleware)
