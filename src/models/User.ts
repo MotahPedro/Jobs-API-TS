@@ -2,6 +2,7 @@ import mongoose from 'mongoose'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import { string } from 'joi'
+import UserDocument from './UserDocument'
 
 const UserSchema = new mongoose.Schema({
     name:{
@@ -40,6 +41,6 @@ UserSchema.methods.comparePassword = async function (candidatePassword: string) 
     }
 }
 
-const User = mongoose.model('User, UserSchema')
+const User = mongoose.model<UserDocument>('User', UserSchema)
 
 export default User
