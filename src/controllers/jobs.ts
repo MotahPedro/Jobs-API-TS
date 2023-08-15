@@ -19,6 +19,6 @@ export const updateJob = async (req:Request, res:Response)=>{
     res.send('updateJob is now working')
 }
 
-export const deletJob = async (req:Request, res:Response)=>{
+export const deleteJob = async (req:Request, res:Response)=>{
     res.send('deleteJob is now working')
 }
