@@ -10,11 +10,11 @@ import {connectDB} from './db/connect'
 
 // Routers
 import authRouter from './routes/auth'
+import jobsRouter from './routes/jobs'
 
 
 import { notFoundMiddleware } from './middleware/not-found'
 import {errorHandlerMiddleware} from './middleware/error-handler'
-import jobsRouter from './routes/jobs'
 
 app.use(express.json())
 
@@ -27,7 +27,7 @@ app.get('/', (req: Request,res: Response)=>{
 
 //routes
 app.use('/api/v1/auth', authRouter)
-app.use('api/v1/jobs', jobsRouter)
+app.use('/api/v1/jobs', jobsRouter)
 
 app.use(notFoundMiddleware)
 app.use(errorHandlerMiddleware)
