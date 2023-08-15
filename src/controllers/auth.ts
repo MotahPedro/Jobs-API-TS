@@ -20,4 +20,5 @@ export const login = async (req:Request,res:Response)=>{
         throw new UnauthenticatedError('Invalid Credentials')
     }
 
+    const isPasswordCorrect = await user.comparePassword(password)
 }
