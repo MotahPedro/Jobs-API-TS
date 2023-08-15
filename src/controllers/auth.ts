@@ -1,6 +1,7 @@
 import { StatusCodes } from 'http-status-codes'
 import User from '../models/User'
 import {Request, Response} from 'express'
+import { BadRequestError, UnauthenticatedError } from '../errors'
 
 export const register = async (req: Request,res: Response)=>{
     const user = await User.create({...req.body})
@@ -8,5 +9,15 @@ export const register = async (req: Request,res: Response)=>{
 }
 
 export const login = async (req:Request,res:Response)=>{
-    res.send('Login is now working')
+    const {email, password} = req.body
+
+    if(!email || !password){
+        throw new BadRequestError('Please provide email and password')
+    }
+    const user = await User.findOne({email})
+
+    if(!user){
+        throw new UnauthenticatedError('Invalid Credentials')
+    }
+
 }
