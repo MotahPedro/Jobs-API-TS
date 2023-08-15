@@ -20,7 +20,7 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please provide a password'],
         minlength: 6,
-        maxlength: 12
+        maxlength: 12,
     }
 })
 
@@ -31,5 +31,13 @@ UserSchema.pre('save', async function(next){
     }
     next()
 })
+
+UserSchema.methods.comparePassword = async function (candidatePassword: string) {
+    try {
+        return await bcrypt.compare(candidatePassword, this.password);
+    } catch (error) {
+        throw error;
+    }
+}
 
 export default mongoose.model('User', UserSchema)
