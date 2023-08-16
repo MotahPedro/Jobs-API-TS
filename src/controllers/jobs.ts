@@ -1,5 +1,3 @@
-// createJob getAllJobs, getJob, updateJob, deleteJob
-
 import express from 'express'
 import { Request, Response } from 'express'
 
