@@ -5,7 +5,7 @@ import { BadRequestError, UnauthenticatedError } from '../errors'
 
 export const register = async (req: Request,res: Response)=>{
     const user = await User.create({...req.body})
-    const token = user.createJWT()
+    const token = await User.prototype.createJWT.call(user)
     res.status(StatusCodes.CREATED).json({user: {name: user.name}, token})
 }
 
@@ -26,6 +26,6 @@ export const login = async (req:Request,res:Response)=>{
         throw new UnauthenticatedError('Invalid Credentials')
     }
 
-    const token = user.createJWT()
+    const token = await User.prototype.createJWT.call(user)
     res.status(StatusCodes.OK).json({user: {name:user.name}, token})
 }

@@ -34,11 +34,18 @@ UserSchema.pre('save', async function(next){
 
 
 UserSchema.methods.createJWT = async function(){
-    const jwtSecret: string = process.env.JWT_SECRET || ''
-    return jwt.sign(
+    try {
+        const jwtSecret: string = process.env.JWT_SECRET || ''
+        const token = jwt.sign(
         {userId: this._id, name:this.name},
         jwtSecret,
-        {expiresIn: process.env.JWT_LIFETIME})
+        {expiresIn: process.env.JWT_LIFETIME}
+    )
+    return token
+    } catch (error) {
+        throw error
+    }
+    
 }
 
 UserSchema.methods.comparePassword = async function (candidatePassword: string) {

@@ -1,4 +1,3 @@
-import express from 'express'
 import { Request, Response } from 'express'
 
 export const createJob = async (req:Request,res:Response)=>{
