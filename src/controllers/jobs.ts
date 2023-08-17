@@ -13,7 +13,8 @@ export const createJob = async (req:Request,res:Response)=>{
 }
 
 export const getAllJobs = async (req:Request, res:Response) =>{
-    res.send('getAllJobs is now working')
+    const jobs = await Job.find({createdBy:req.user.userId}).sort('createdAt')
+    res.status(StatusCodes.OK).json({jobs, count:jobs.length})
 }
 
 export const getJob = async (req:Request,res:Response)=>{
