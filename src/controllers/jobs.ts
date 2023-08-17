@@ -1,7 +1,11 @@
 import { Request, Response } from 'express'
+import Job from '../models/Job'
+import { StatusCodes } from 'http-status-codes'
+import { BadRequestError, NotFoundError } from '../errors'
 
 export const createJob = async (req:Request,res:Response)=>{
-    res.send('createJob is now working')
+    const job = await Job.create(req.body)
+    res.status(StatusCodes.CREATED).json({job})
 }
 
 export const getAllJobs = async (req:Request, res:Response) =>{
