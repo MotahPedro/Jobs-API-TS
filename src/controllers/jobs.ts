@@ -4,8 +4,12 @@ import { StatusCodes } from 'http-status-codes'
 import { BadRequestError, NotFoundError } from '../errors'
 
 export const createJob = async (req:Request,res:Response)=>{
-    const job = await Job.create(req.body)
-    res.status(StatusCodes.CREATED).json({job})
+    try {
+        const job = await Job.create({...req.body})
+        res.status(StatusCodes.CREATED).json({job})
+    } catch (error) {
+        res.send(error)
+    }
 }
 
 export const getAllJobs = async (req:Request, res:Response) =>{
