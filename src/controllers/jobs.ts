@@ -13,7 +13,7 @@ export const createJob = async (req:Request,res:Response)=>{
 }
 
 export const getAllJobs = async (req:Request, res:Response) =>{
-    const jobs = await Job.find({createdBy:req.user.userId}).sort('createdAt')
+    const jobs = await Job.find({createdBy:req.body}).sort('createdAt')
     res.status(StatusCodes.OK).json({jobs, count:jobs.length})
 }
 
