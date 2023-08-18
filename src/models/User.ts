@@ -45,7 +45,6 @@ UserSchema.methods.createJWT = async function(){
     } catch (error) {
         throw error
     }
-    
 }
 
 UserSchema.methods.comparePassword = async function (candidatePassword: string) {

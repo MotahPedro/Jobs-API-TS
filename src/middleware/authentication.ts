@@ -1,24 +1,37 @@
-import jwt, { Secret, JwtPayload } from 'jsonwebtoken'
+import jwt, { JwtPayload } from 'jsonwebtoken'
 import {UnauthenticatedError} from '../errors/unauthenticated'
 import {Request, Response, NextFunction} from 'express'
+import { StatusCodes } from 'http-status-codes'
+
+const JWTSECRET = process.env.JWT_SECRET
+
+export const authenticateUser = async (req:Request,res:Response,next:NextFunction)=>{
+
+    const authHeader = req.headers.authorization
+
+    if(!authHeader){
+        throw new UnauthenticatedError("No token found")
+    }
+    const token = authHeader.replace('Bearer ', '')
 
 
-// export const authenticateUser = async (req:Request,res:Response,next:NextFunction)=>{
+    try {
 
-//     const authHeader = req.headers.authorization
-//     if(!authHeader||!authHeader.startsWith('Bearer ')){
-//         throw new UnauthenticatedError("Authentication invalid")
-//     }
-//     const token = authHeader.split(' ')[1]
+        if(!JWTSECRET){
+            res.sendStatus(StatusCodes.UNPROCESSABLE_ENTITY)
+            return
+        }
+       
+        const payload = await jwt.verify(token, JWTSECRET) as {email: string}
+        
+        if(!payload){
+            throw new UnauthenticatedError('Invalid token payload')
+        }
+        
+        res.locals.useremail = payload.email
 
-//     try {
-//         const payload = jwt.verify(token, process.env.JWT_SECRET as Secret) as JwtPayload
-//         if(!payload.userId){
-//             throw new UnauthenticatedError('Invalid token payload')
-//         }
-//         req.user = {userId: payload.userId as string}
-//         next()
-//     } catch (error) {
-//         throw new UnauthenticatedError('Authentication Invalid')
-//     }
-// }
+        next()
+    } catch (error) {
+        throw new UnauthenticatedError('Authentication Invalid')
+    }
+}
