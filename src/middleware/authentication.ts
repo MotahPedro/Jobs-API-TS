@@ -1,7 +1,7 @@
-// import User from '../models/User'
-// import jwt, { Secret, JwtPayload } from 'jsonwebtoken'
-// import {UnauthenticatedError} from '../errors'
-// import {Request, Response, NextFunction} from 'express'
+import jwt, { Secret, JwtPayload } from 'jsonwebtoken'
+import {UnauthenticatedError} from '../errors/unauthenticated'
+import {Request, Response, NextFunction} from 'express'
+
 
 // export const authenticateUser = async (req:Request,res:Response,next:NextFunction)=>{
 
