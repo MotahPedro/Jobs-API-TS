@@ -5,6 +5,7 @@ import { BadRequestError, NotFoundError } from '../errors'
 
 export const createJob = async (req:Request,res:Response)=>{
     try {
+        req.body.createdBy = req.user.userId
         const job = await Job.create({...req.body})
         res.status(StatusCodes.CREATED).json({job})
     } catch (error) {
