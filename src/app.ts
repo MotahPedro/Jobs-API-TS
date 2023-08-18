@@ -7,6 +7,7 @@ dotenv.config()
 const app : Express = express()
 
 import {connectDB} from './db/connect'
+import { authenticateUser } from './middleware/authentication'
 
 // Routers
 import authRouter from './routes/auth'
@@ -27,7 +28,7 @@ app.get('/', (req: Request,res: Response)=>{
 
 //routes
 app.use('/api/v1/auth', authRouter)
-app.use('/api/v1/jobs', jobsRouter)
+app.use('/api/v1/jobs', authenticateUser, jobsRouter)
 
 app.use(notFoundMiddleware)
 app.use(errorHandlerMiddleware)

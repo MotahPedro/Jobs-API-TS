@@ -3,7 +3,7 @@ import jwt, { Secret, JwtPayload } from 'jsonwebtoken'
 import {UnauthenticatedError} from '../errors'
 import {Request, Response, NextFunction} from 'express'
 
-export const auth = async (req:Request,res:Response,next:NextFunction)=>{
+export const authenticateUser = async (req:Request,res:Response,next:NextFunction)=>{
 
     const authHeader = req.headers.authorization
     if(!authHeader||!authHeader.startsWith('Bearer ')){
